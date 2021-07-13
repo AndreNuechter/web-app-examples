@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XLSX Dummy</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin: 0 auto;
+        }
+
+        td,
+        th {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="input">Upload</label>
+    <input id="input" type="file">
+    <table id="result"></table>
+
+    <script>
+        const result = document.getElementById('result');
+
+        document.getElementById('input').addEventListener(
+            'change',
+            ({ target: { files: [file] } }) => {
+                const formData = new FormData();
+                formData.append('file', file);
+                fetch('', { method: 'post', body: formData })
+                    .then(data => data.json())
+                    .then(showResult)
+                    .catch(console.error);
+            });
+
+        function showResult(data) {
+            result.innerHTML = '';
+            result
+                .insertRow()
+                .append(...data[0].map(header => Object.assign(
+                    document.createElement('th'), { textContent: header }
+                )));
+            data
+                .slice(1)
+                .forEach(rowData => result
+                    .insertRow()
+                    .append(...rowData.map(cell => Object.assign(
+                        document.createElement('td'), { textContent: cell }
+                    )))
+                );
+        }
+    </script>
+</body>
+
+</html>

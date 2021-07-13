@@ -1,0 +1,16 @@
+{
+  "name": "xlsx-dummy",
+  "version": "1.0.0",
+  "description": "just a dummy",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "andre.nuechter@neofonie.de",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "xlsx": "^0.17.0"
+  }
+}

@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000" />
+    <meta name="description" content="Simply the best">
+    <link rel="icon" type="image/png" href="./images/icons-192.png">
+    <link rel="manifest" href="./manifest.json">
     <title>XLSX Dummy</title>
     <style>
         body {
@@ -31,6 +35,13 @@
 
     <script>
         const result = document.getElementById('result');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if ('serviceWorker' in window.navigator) {
+                window.navigator.serviceWorker
+                    .register('./service-worker.js');
+            }
+        }, { once: true });
 
         document.getElementById('input').addEventListener(
             'change',

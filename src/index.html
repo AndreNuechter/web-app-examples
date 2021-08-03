@@ -5,10 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000" />
-    <meta name="description" content="Simply the best">
-    <link rel="icon" type="image/png" href="./images/icons-192.png">
-    <link rel="manifest" href="./manifest.json">
     <title>XLSX Dummy</title>
     <style>
         body {
@@ -34,25 +30,24 @@
     <table id="result"></table>
 
     <script>
+        const XLSX = require('xlsx');
         const result = document.getElementById('result');
-
-        window.addEventListener('DOMContentLoaded', () => {
-            if ('serviceWorker' in window.navigator) {
-                window.navigator.serviceWorker
-                    .register('./service-worker.js');
-            }
-        }, { once: true });
 
         document.getElementById('input').addEventListener(
             'change',
             ({ target: { files: [file] } }) => {
-                const formData = new FormData();
-                formData.append('file', file);
-                fetch('', { method: 'post', body: formData })
-                    .then(data => data.json())
-                    .then(showResult)
-                    .catch(console.error);
-            });
+                const reader = new FileReader();
+                reader.onload = ({ target: { result } }) => {
+                    showResult(load_data(new Uint8Array(result)));
+                }
+                reader.readAsArrayBuffer(file);
+            }
+        );
+
+        function load_data(file) {
+            const wb = XLSX.read(file, { type: 'array' });
+            return XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1 });
+        }
 
         function showResult(data) {
             result.innerHTML = '';

@@ -1,16 +1,43 @@
 {
-  "name": "xlsx-dummy",
+  "name": "my_project",
+  "productName": "my_project",
   "version": "1.0.0",
-  "description": "just a dummy",
-  "main": "index.js",
+  "description": "My Electron application description",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
   },
-  "author": "andre.nuechter@neofonie.de",
-  "license": "ISC",
+  "keywords": [],
+  "author": {
+    "name": "nuechter",
+    "email": "andre.nuechter@neofonie.de"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        }
+      ]
+    }
+  },
   "dependencies": {
-    "express": "^4.17.1",
-    "express-fileupload": "^1.2.1",
+    "electron-squirrel-startup": "^1.0.0",
     "xlsx": "^0.17.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.57",
+    "@electron-forge/maker-deb": "^6.0.0-beta.57",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.57",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
+    "@electron-forge/maker-zip": "^6.0.0-beta.57",
+    "electron": "13.1.6"
   }
 }
